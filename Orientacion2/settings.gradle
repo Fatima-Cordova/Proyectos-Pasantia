@@ -1,0 +1,2 @@
+rootProject.name = "Orientacion2"
+include ':app'
