@@ -1,0 +1,2 @@
+rootProject.name = "Widgets2"
+include ':app'
