@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">RecycleView</string>
+
+    <string-array name="redes_sociales">
+        <item>Discord</item>
+        <item>Facebook</item>
+        <item>Instagram</item>
+        <item>Pinterest</item>
+        <item>Snapchat</item>
+        <item>Telegram</item>
+        <item>Twitter</item>
+        <item>WhatsApp</item>
+        <item>Youtube</item>
+    </string-array>
+
+</resources>
