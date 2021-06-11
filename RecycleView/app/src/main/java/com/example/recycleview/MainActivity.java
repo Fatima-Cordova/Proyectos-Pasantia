@@ -11,8 +11,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recycler;
 
     String redesSociales[];
-    int imagenes[] = {R.drawable.discord,R.drawable.facebook, R.drawable.instagram,R.drawable.pinterest,
-            R.drawable.snapchat,R.drawable.telegram,R.drawable.twitter,R.drawable.whatsapp,
+    int imagenes[] = {R.drawable.discord,R.drawable.facebook, R.drawable.instagram, R.drawable.linkedin,
+            R.drawable.pinterest, R.drawable.snapchat,R.drawable.telegram,R.drawable.twitter,R.drawable.whatsapp,
                       R.drawable.youtube};
 
     @Override

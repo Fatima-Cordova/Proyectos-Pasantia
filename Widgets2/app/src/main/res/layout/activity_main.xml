@@ -12,9 +12,9 @@
         android:layout_width="400dp"
         android:layout_height="30dp"
         android:gravity="center"
+        android:text="¿A que genero pertenece usted?"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:text="¿A que genero pertenece usted?"/>
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnFemenino"

@@ -1,11 +1,10 @@
 <resources>
-    <string name="app_name">RecycleView</string>
+    <string name="app_name">RecycleView(v2)</string>
 
     <string-array name="redes_sociales">
         <item>Discord</item>
         <item>Facebook</item>
         <item>Instagram</item>
-        <item>LinkedIn</item>
         <item>Pinterest</item>
         <item>Snapchat</item>
         <item>Telegram</item>
