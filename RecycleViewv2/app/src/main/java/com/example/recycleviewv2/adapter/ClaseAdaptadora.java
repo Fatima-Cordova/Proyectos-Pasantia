@@ -14,10 +14,11 @@ import java.util.ArrayList;
 
 public class ClaseAdaptadora
         extends RecyclerView.Adapter<ClaseAdaptadora.ViewHolderRedes>
-        implements View.OnClickListener{
+        implements View.OnClickListener, View.OnLongClickListener {
 
     ArrayList<RedesSociales> listaRedes;
     private View.OnClickListener listener;
+    private View.OnLongClickListener list;
 
     public ClaseAdaptadora(ArrayList<RedesSociales> listaRedes) {
         this.listaRedes = listaRedes;
@@ -25,14 +26,14 @@ public class ClaseAdaptadora
 
     @Override
     public ViewHolderRedes onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout=0;
-        if (Utilidades.visualizacion==Utilidades.LIST){
-            layout=R.layout.my_list;
-        }else {
-            layout=R.layout.my_list;
+        int layout = 0;
+        if (Utilidades.visualizacion == Utilidades.LIST) {
+            layout = R.layout.my_list;
+        } else {
+            layout = R.layout.my_list;
         }
 
-        View view= LayoutInflater.from(parent.getContext()).inflate(layout,null,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layout, null, false);
 
         view.setOnClickListener(this);
 
@@ -43,7 +44,7 @@ public class ClaseAdaptadora
     public void onBindViewHolder(ViewHolderRedes holder, int position) {
         holder.txtNombre.setText(listaRedes.get(position).getNombre());
 
-        if (Utilidades.visualizacion==Utilidades.LIST){
+        if (Utilidades.visualizacion == Utilidades.LIST) {
             holder.imagen.setImageResource(listaRedes.get(position).getFoto());
         }
     }
@@ -53,16 +54,30 @@ public class ClaseAdaptadora
         return listaRedes.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener){
-        this.listener=listener;
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
     public void onClick(View view) {
-        if (listener!=null){
+        if (listener != null) {
             listener.onClick(view);
         }
     }
+
+    public boolean onLongClick(View.OnLongClickListener view) {
+        this.list = list;
+        return false;
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (list != null) {
+            list.onLongClick(v);
+        }
+        return false;
+    }
+
 
     public class ViewHolderRedes extends RecyclerView.ViewHolder {
 
@@ -75,7 +90,6 @@ public class ClaseAdaptadora
             if (Utilidades.visualizacion==Utilidades.LIST){
                 imagen= (ImageView) itemView.findViewById(R.id.idImagen);
             }
-
         }
     }
 }

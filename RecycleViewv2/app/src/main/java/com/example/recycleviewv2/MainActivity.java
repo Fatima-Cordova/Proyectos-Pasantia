@@ -1,9 +1,11 @@
 package com.example.recycleviewv2;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -48,24 +50,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void recycler() {
-        listaRedes=new ArrayList<>();
-        recycler= (RecyclerView) findViewById(R.id.recycler);
+        listaRedes = new ArrayList<>();
+        recycler = (RecyclerView) findViewById(R.id.recycler);
 
-        if (Utilidades.visualizacion==Utilidades.LIST){
+        if (Utilidades.visualizacion == Utilidades.LIST) {
             recycler.setLayoutManager(new LinearLayoutManager(this));
         }
 
         llenarLista();
 
-        ClaseAdaptadora adapter=new ClaseAdaptadora(listaRedes);
+        ClaseAdaptadora adapter = new ClaseAdaptadora(listaRedes);
 
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),
-                        "Usted Seleccionó: "+listaRedes.get(recycler.getChildAdapterPosition(view)).getNombre(),Toast.LENGTH_SHORT).show();
+                        "Usted Seleccionó: " + listaRedes.get(recycler.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
             }
         });
         recycler.setAdapter(adapter);
+
+        adapter.onLongClick(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                alert.setTitle("Redes Sociales");
+                alert.setMessage(listaRedes.get(recycler.getChildAdapterPosition(v)).getNombre())
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).show();
+                return false;
+            }
+        });
     }
 }
