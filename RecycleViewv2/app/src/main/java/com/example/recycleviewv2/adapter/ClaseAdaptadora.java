@@ -37,6 +37,8 @@ public class ClaseAdaptadora
 
         view.setOnClickListener(this);
 
+        view.setOnLongClickListener(this);
+
         return new ViewHolderRedes(view);
     }
 
@@ -65,7 +67,7 @@ public class ClaseAdaptadora
         }
     }
 
-    public boolean onLongClick(View.OnLongClickListener view) {
+    public boolean onLongClick(View.OnLongClickListener list) {
         this.list = list;
         return false;
     }
