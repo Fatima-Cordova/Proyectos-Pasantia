@@ -5,19 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.listanotas.util.Utilidades;
 
 import java.util.ArrayList;
 
 public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHolderNotas> {
 
     ArrayList<Notas> listaNotas;
-    private ViewHolderNotas holder;
-    private int position;
+
 
     public ClaseAdaptadora(ArrayList<Notas> listaNotas) {
 
@@ -27,15 +23,9 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
 
     @Override
     public ViewHolderNotas onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout = 0;
-        if (Utilidades.visualizacion == Utilidades.LIST) {
-            layout = R.layout.my_notes;
-        } else {
-            layout = R.layout.my_notes;
-        }
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(layout, null, false);
-
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.my_notes,parent,false);
         return new ViewHolderNotas(view);
     }
 
@@ -46,6 +36,7 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
 
     @Override
     public int getItemCount() {
+
         return listaNotas.size();
     }
 
