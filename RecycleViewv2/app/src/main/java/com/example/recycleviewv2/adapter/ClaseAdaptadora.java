@@ -21,6 +21,7 @@ public class ClaseAdaptadora
     private View.OnLongClickListener list;
 
     public ClaseAdaptadora(ArrayList<RedesSociales> listaRedes) {
+
         this.listaRedes = listaRedes;
     }
 
@@ -59,6 +60,8 @@ public class ClaseAdaptadora
     public void setOnClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
+
+    public void
 
     @Override
     public void onClick(View view) {
