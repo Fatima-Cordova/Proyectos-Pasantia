@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         recycler.setHasFixedSize (true);
         adaptadora = new ClaseAdaptadora(listaNotas);
         recycler.setAdapter(adaptadora);
-
+        
     }
 
 
@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),
-                        "" + listaNotas.get(recycler.getChildAdapterPosition(view)).getAnotacion(), Toast.LENGTH_SHORT).show();
+                        "" + listaNotas.get(recycler.getChildAdapterPosition(view)).getAnotacion(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
         recycler.setAdapter(adaptadora);
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Si", new DialogInterface.OnClickListener () {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                               // adaptadora.removeItem(position);
+                              adaptadora.removeItem(recycler.getChildAdapterPosition(v));
                             }
                         })
                         .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

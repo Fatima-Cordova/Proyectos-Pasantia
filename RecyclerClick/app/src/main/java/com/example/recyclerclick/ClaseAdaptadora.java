@@ -20,6 +20,7 @@ public class ClaseAdaptadora
         this.listaNotas = listaNotas;
     }
 
+
     @Override
     public ViewHolderNotas onCreateViewHolder(ViewGroup parent, int viewType) {
 
