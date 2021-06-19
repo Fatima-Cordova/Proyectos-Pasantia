@@ -15,29 +15,28 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    ClaseAdaptadora adaptador;
     RecyclerView recycler;
     EditText edtBuscador;
     Button btnBuscar;
 
-    String redesSociales[];
-    List<Redes> filtrarNombre = new ArrayList<>();
-    int imagenes[] = {R.drawable.discord,R.drawable.facebook, R.drawable.instagram, R.drawable.linkedin,
-            R.drawable.pinterest, R.drawable.snapchat,R.drawable.telegram,R.drawable.twitter,R.drawable.whatsapp,
-            R.drawable.youtube};
+    ArrayList <Redes> filtrarNombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         recycler = (RecyclerView) findViewById(R.id.recycler);
         edtBuscador = (EditText) findViewById(R.id.edtBuscador);
         btnBuscar = (Button) findViewById(R.id.btnBuscar);
 
-        redesSociales = getResources().getStringArray(R.array.redes_sociales);
 
+        filtrarNombre = new ArrayList<>();
+        filtrarNombre = llenarLista();
 
-        ClaseAdaptadora adaptador = new ClaseAdaptadora(redesSociales, imagenes, this);
+        adaptador = new ClaseAdaptadora(filtrarNombre);
         recycler.setAdapter(adaptador);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
@@ -56,19 +55,40 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
                 filtrarNombre.clear();
+                filtrarNombre = llenarLista();
                 if(s.toString().isEmpty()){
-                    recycler.setAdapter(new ClaseAdaptadora(getApplicationContext(),filtrarNombre));
-                    adaptador.notifyDataSetChanged();
+                    recycler.setAdapter(new ClaseAdaptadora(filtrarNombre));
                 }
                 else{
-                    buscar(s.toString());
+                    search(s.toString());
                 }
+               adaptador.notifyDataSetChanged();
             }
         });
     }
 
+    private  ArrayList<Redes> llenarLista() {
+        ArrayList<Redes> redS = new ArrayList<>();
+        redS.add(new Redes("Discord",R.drawable.discord));
+        redS.add(new Redes("Facebook",R.drawable.facebook));
+        redS.add(new Redes("Instagram",R.drawable.instagram));
+        redS.add(new Redes("Pinterest",R.drawable.pinterest));
+        redS.add(new Redes("Snapchat",R.drawable.snapchat));
+        redS.add(new Redes("Telegram",R.drawable.telegram));
+        redS.add(new Redes("Twitter",R.drawable.twitter));
+        redS.add(new Redes("Whatsapp",R.drawable.whatsapp));
+        redS.add(new Redes("YouTube",R.drawable.youtube));
+        return redS;
+    }
+
     private void buscar(String red){
-        recycler.setAdapter(new ClaseAdaptadora(getApplicationContext(),filtrarNombre));
+        recycler.setAdapter(new ClaseAdaptadora(filtrarNombre));
+        adaptador.notifyDataSetChanged();
+    }
+
+    private void search(String busqueda){
+        filtrarNombre.stream().filter(redes -> redes.getNombre()=="Discord");
+        recycler.setAdapter(new ClaseAdaptadora(filtrarNombre));
         adaptador.notifyDataSetChanged();
     }
 }

@@ -12,49 +12,86 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.RedesSociales> {
+public class ClaseAdaptadora
+        extends RecyclerView.Adapter<ClaseAdaptadora.ViewHolderRedes>
+        implements View.OnClickListener, View.OnLongClickListener {
 
-    String redesSociales[];
-    int imagenes[];
-    Context contxt;
+    ArrayList<Redes> listaRedes;
+    private View.OnClickListener listener;
+    private View.OnLongClickListener list;
 
-    public ClaseAdaptadora(String redes[], int img[], Context context) {
-        redesSociales = redes;
-        imagenes = img;
-        contxt = context;
-    }
+    public ClaseAdaptadora(ArrayList<Redes> listaRedes) {
 
-    public ClaseAdaptadora(Context applicationContext, List<Redes> redesSociales) {
-    }
-
-
-    @Override
-    public RedesSociales onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(contxt);
-        View view = inflater.inflate(R.layout.mi_lista,parent, false);
-        return new RedesSociales(view);
+        this.listaRedes = listaRedes;
     }
 
     @Override
-    public void onBindViewHolder(ClaseAdaptadora.RedesSociales holder, int position) {
-        holder.txtRedes.setText(redesSociales[position]);
-        holder.imageView.setImageResource(imagenes[position]);
+    public ViewHolderRedes onCreateViewHolder(ViewGroup parent, int viewType) {
+        int layout = 0;
+        if (Utilidades.visualizacion == Utilidades.LIST) {
+            layout = R.layout.mi_lista;
+        } else {
+            layout = R.layout.mi_lista;
+        }
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(layout, null, false);
+
+        view.setOnClickListener(this);
+
+        view.setOnLongClickListener(this);
+
+        return new ViewHolderRedes(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolderRedes holder, int position) {
+        holder.txtNombre.setText(listaRedes.get(position).getNombre());
+
+        if (Utilidades.visualizacion == Utilidades.LIST) {
+            holder.imagen.setImageResource(listaRedes.get(position).getImagen());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return imagenes.length;
+        return listaRedes.size();
     }
 
-    public class RedesSociales extends RecyclerView.ViewHolder {
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
 
-        TextView txtRedes;
-        ImageView imageView;
+    public void onClick(View view) {
+        if (listener != null) {
+            listener.onClick(view);
+        }
+    }
 
-        public RedesSociales(View itemView) {
+    public boolean onLongClick(View.OnLongClickListener list) {
+        this.list = list;
+        return false;
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (list != null) {
+            list.onLongClick(v);
+        }
+        return false;
+    }
+
+
+    public class ViewHolderRedes extends RecyclerView.ViewHolder {
+
+        TextView txtNombre;
+        ImageView imagen;
+
+        public ViewHolderRedes(View itemView) {
             super(itemView);
-            txtRedes = itemView.findViewById(R.id.txtRedes);
-            imageView = itemView.findViewById(R.id.myImageView);
+            txtNombre= (TextView) itemView.findViewById(R.id.txtRedes);
+            if (Utilidades.visualizacion==Utilidades.LIST){
+                imagen= (ImageView) itemView.findViewById(R.id.myImageView);
+            }
         }
     }
 }
