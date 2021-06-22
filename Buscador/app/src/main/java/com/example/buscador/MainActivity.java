@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         edtBuscador = (EditText) findViewById(R.id.edtBuscador);
-        recycler();
-        filtrarNombre = new ArrayList<>();
         llenarLista();
-        buscar();
+        recycler();
+
+
 
         edtBuscador.addTextChangedListener(new TextWatcher() {
         @Override
@@ -65,18 +65,8 @@ public class MainActivity extends AppCompatActivity {
         filtrarNombre.add(new Redes("YouTube",R.drawable.youtube));
     }
 
-
-    private void buscar() {
-        recycler.setAdapter(new ClaseAdaptadora(filtrarNombre));
-        adaptador.notifyDataSetChanged();
-    }
-
     private void recycler(){
         recycler = (RecyclerView) findViewById(R.id.recycler);
-
-        if (Utilidades.visualizacion == Utilidades.LIST) {
-            recycler.setLayoutManager(new LinearLayoutManager(this));
-        }
 
         recycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);

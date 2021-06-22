@@ -26,20 +26,13 @@ public class ClaseAdaptadora
     private View.OnLongClickListener list;
 
     public ClaseAdaptadora(ArrayList<Redes> listaRedes) {
-
         this.listaRedes = listaRedes;
+        this.filtrarNombre = new ArrayList<>(listaRedes);
     }
 
     @Override
     public ViewHolderRedes onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layout = 0;
-        if (Utilidades.visualizacion == Utilidades.LIST) {
-            layout = R.layout.mi_lista;
-        } else {
-            layout = R.layout.mi_lista;
-        }
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(layout, null, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mi_lista, null, false);
 
         view.setOnClickListener(this);
 
@@ -51,21 +44,17 @@ public class ClaseAdaptadora
     @Override
     public void onBindViewHolder(ViewHolderRedes holder, int position) {
         Redes currentItem = listaRedes.get(position);
-
-        holder.txtNombre.setText(listaRedes.get(position).getNombre());
+        holder.txtNombre.setText(currentItem.getNombre());
         holder.imagen.setImageResource(currentItem.getImagen());
-
-        if (Utilidades.visualizacion == Utilidades.LIST) {
-            holder.imagen.setImageResource(listaRedes.get(position).getImagen());
-        }
     }
+
 
     @Override
     public int getItemCount() {
         return listaRedes.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
+        public void setOnClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
 
@@ -98,12 +87,12 @@ public class ClaseAdaptadora
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Redes> filtrarLista = new ArrayList<>();
             if (constraint == null || constraint.length() == 0) {
-                filtrarLista.addAll(listaRedes);
+                filtrarLista.addAll(filtrarNombre);
             }
             else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (Redes item : listaRedes) {
+                for (Redes item : filtrarNombre) {
                     if (item.getNombre().toLowerCase().contains(filterPattern)) {
                         filtrarLista.add(item);
                     }
@@ -117,8 +106,8 @@ public class ClaseAdaptadora
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filtrarNombre.clear();
-            filtrarNombre.addAll((List) results.values);
+            listaRedes.clear();
+            listaRedes.addAll((List) results.values);
             notifyDataSetChanged();
         }
     };
@@ -128,16 +117,12 @@ public class ClaseAdaptadora
 
         TextView txtNombre;
         ImageView imagen;
-        EditText edtBuscador;
 
 
         public ViewHolderRedes(View itemView) {
             super(itemView);
             txtNombre= (TextView) itemView.findViewById(R.id.txtRedes);
-            edtBuscador = (EditText) itemView.findViewById(R.id.edtBuscador);
-            if (Utilidades.visualizacion==Utilidades.LIST){
-                imagen= (ImageView) itemView.findViewById(R.id.myImageView);
-            }
+            imagen= (ImageView) itemView.findViewById(R.id.myImageView);
         }
     }
 }
