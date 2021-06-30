@@ -44,7 +44,6 @@ public class LeerActivity extends AppCompatActivity {
 
     }
 
-
     public void guardarNota(View view) {
         String titulo = edtTitulo.getText().toString();
         String descripcion = edtDescripcion.getText().toString();

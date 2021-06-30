@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recycler;
     EditText edtBuscador;
     Button btnAgregar;
-    int codigo = 0;
     ArrayList<Notas> listaNotas;
     FileManager fm;
 
@@ -52,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
         adaptadora = new ClaseAdaptadora(listaNotas);
         recycler.setAdapter(adaptadora);
 
-
-        permisos();
-
         edtBuscador.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -74,52 +70,9 @@ public class MainActivity extends AppCompatActivity {
         adaptadora.notifyDataSetChanged();
     }
 
-    private void permisos() {
-            int escribir = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            int lectura = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-
-            if (escribir == PackageManager.PERMISSION_GRANTED && lectura == PackageManager.PERMISSION_GRANTED) {
-            }
-            if (ActivityCompat.shouldShowRequestPermissionRationale
-                    (this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
-                    (ActivityCompat.shouldShowRequestPermissionRationale
-                            (this, Manifest.permission.READ_EXTERNAL_STORAGE))) {
-                {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage("Se necesitan permisos de lectura y escritura para continuar...");
-                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            finish();
-                        }
-                    });
-
-                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, codigo);
-                            ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, codigo);
-                        }
-                    });
-                    builder.show();
-                }
-            }
-
-            else{
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, codigo);
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, codigo);
-            }
-    }
-
-
     public void agregar (View view) {
         Intent intent = new Intent(MainActivity.this, EscribirActivity.class);
+
         startActivity(intent);
     }
 
