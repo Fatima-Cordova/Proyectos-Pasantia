@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.notasdemo.model.Nota;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     EditText edtEscribirNota;
     Button btnAgregar, btnBorrar;
     RecyclerView recycler;
-    List<MainData> dataList = new ArrayList<>();
+    List<Nota> dataList = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
     RoomBD database;
     ClaseAdaptadora adaptadora;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         recycler = (RecyclerView) findViewById(R.id.recycler);
 
         database = RoomBD.getInstance(this);
-        dataList = database.mainDao().getAll();
+        dataList = database.notaDao().getAll();
 
         linearLayoutManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(linearLayoutManager);
@@ -45,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String sText = edtEscribirNota.getText().toString().trim();
                 if (!sText.equals("")){
-                    MainData data = new MainData();
-                    data.setText(sText);
-                    database.mainDao().insert(data);
+                    Nota nota = new Nota();
+                    nota.setText(sText);
+                    database.notaDao().insert(nota);
                     edtEscribirNota.setText("");
                     dataList.clear();
-                    dataList.addAll(database.mainDao().getAll());
+                    dataList.addAll(database.notaDao().getAll());
                     adaptadora.notifyDataSetChanged();
                 }
             }
@@ -59,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         btnBorrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.mainDao().reset(dataList);
+                database.notaDao().reset(dataList);
                 dataList.clear();
-                dataList.addAll(database.mainDao().getAll());
+                dataList.addAll(database.notaDao().getAll());
                 adaptadora.notifyDataSetChanged();
             }
         });

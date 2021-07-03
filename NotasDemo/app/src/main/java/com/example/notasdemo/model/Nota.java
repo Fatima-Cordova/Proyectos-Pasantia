@@ -1,11 +1,11 @@
-package com.example.notasdemo;
+package com.example.notasdemo.model;
 
 import androidx.room.*;
 
 import java.io.Serializable;
 
 @Entity(tableName = "table_name")
-public class MainData implements Serializable {
+public class Nota implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int ID;

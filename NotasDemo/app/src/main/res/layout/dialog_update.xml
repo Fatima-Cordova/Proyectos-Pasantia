@@ -7,20 +7,23 @@
     android:layout_margin="8dp">
 
     <EditText
+        android:id="@+id/edtEscribirNota"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtEscribirNota"
-        android:hint="Escriba aquí"
-        android:padding="12dp"
-        android:lines="4"
+        android:background="@android:drawable/editbox_background"
         android:gravity="top"
-        android:background="@android:drawable/editbox_background"/>
+        android:hint="Escriba aquí..."
+        android:lines="4"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/btnActualizar"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:text="Actualizar" />
+        android:backgroundTint="@color/primary"
+        android:text="Actualizar"
+        android:textColor="@color/black" />
 
 </LinearLayout>

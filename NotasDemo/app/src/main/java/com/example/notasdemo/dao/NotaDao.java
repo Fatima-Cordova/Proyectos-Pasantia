@@ -1,6 +1,8 @@
-package com.example.notasdemo;
+package com.example.notasdemo.dao;
 
 import androidx.room.*;
+
+import com.example.notasdemo.model.Nota;
 
 import java.util.List;
 
@@ -8,19 +10,19 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 
 
 @Dao
-public interface MainDao {
+public interface NotaDao {
     @Insert(onConflict = REPLACE)
-    void insert(MainData mainData);
+    void insert(Nota nota);
 
     @Delete
-    void delete(MainData mainData);
+    void delete(Nota nota);
 
     @Delete
-    void reset(List<MainData> mainData);
+    void reset(List<Nota> mainData);
 
     @Query("UPDATE table_name SET text =:sText WHERE ID =:sID")
     void update (int sID, String sText);
 
     @Query("SELECT * FROM table_name")
-    List<MainData> getAll();
+    List<Nota> getAll();
 }
