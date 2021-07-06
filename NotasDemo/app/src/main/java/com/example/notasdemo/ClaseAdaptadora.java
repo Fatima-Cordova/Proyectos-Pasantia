@@ -32,7 +32,7 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_row_main, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_notas, parent, false);
         return new ViewHolder(view);
     }
 
@@ -50,7 +50,7 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
                 String sText = d.getText();
 
                 Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.dialog_update);
+                dialog.setContentView(R.layout.dialogo_actualizar);
                 int width = WindowManager.LayoutParams.MATCH_PARENT;
                 int height = WindowManager.LayoutParams.WRAP_CONTENT;
                 dialog.getWindow().setLayout(width,height);
@@ -94,6 +94,9 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
         return dataList.size();
     }
 
+    public void notifyDataSetChanged(List<Note> dataList) {
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView txtNota;
@@ -104,7 +107,6 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
             txtNota = (TextView) itemView.findViewById(R.id.txtNota);
             btnEditar= (ImageView) itemView.findViewById(R.id.btnEdit);
             btnEliminar = (ImageView) itemView.findViewById(R.id.btnBorrar);
-
         }
     }
 }

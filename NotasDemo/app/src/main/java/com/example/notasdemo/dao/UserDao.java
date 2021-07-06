@@ -2,9 +2,11 @@ package com.example.notasdemo.dao;
 
 import androidx.room.*;
 
+import com.example.notasdemo.model.Note;
 import com.example.notasdemo.model.UserWithNote;
 import com.example.notasdemo.model.User;
 
+import java.util.Collection;
 import java.util.List;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
