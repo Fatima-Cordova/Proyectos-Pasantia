@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.notasdemo.model.Note;
 import com.example.notasdemo.model.UserWithNote;
+import com.example.notasdemo.util.Cypher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
         if(idUser > 0){
             userNote = database.userDao().getAllNote(idUser);
             dataList = userNote.notas;
+            /*for(Note note:dataList){
+                note.setText(Cypher.decrypt(note.getText()));
+
+            }*/
         }
     }
 }
