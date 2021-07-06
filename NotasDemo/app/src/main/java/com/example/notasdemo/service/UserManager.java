@@ -21,14 +21,14 @@ public class UserManager {
         baseDeDatos.userDao().insert(user);
     }
 
-    public boolean validar(String correo, String pass){
-        boolean isValid = false;
+    public User validar(String correo, String pass) {
         User user = baseDeDatos.userDao().getUser(correo);
-        if(user != null){
-            if (pass.equals(user.getPass())){
-                isValid = true;
-            }
+        if (user != null) {
+            return user;
+        } else {
+            user = new User();
+            user.setId(0);
+            return user;
         }
-        return isValid;
     }
 }

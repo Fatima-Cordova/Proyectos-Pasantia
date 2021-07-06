@@ -14,17 +14,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notasdemo.model.Nota;
+import com.example.notasdemo.model.Note;
 
 import java.util.List;
 
 public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHolder> {
 
-    private List<Nota> dataList;
+    private List<Note> dataList;
     private Activity context;
     private RoomBD baseDeDatos;
 
-    public ClaseAdaptadora(Activity context, List<Nota>dataList){
+    public ClaseAdaptadora(Activity context, List<Note>dataList){
         this.context = context;
         this.dataList = dataList;
         notifyDataSetChanged();
@@ -38,14 +38,14 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
 
     @Override
     public void onBindViewHolder(ClaseAdaptadora.ViewHolder holder, int position) {
-        Nota data = dataList.get(position);
+        Note data = dataList.get(position);
         baseDeDatos = RoomBD.getInstance(context);
         holder.txtNota.setText(data.getText());
 
         holder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Nota d = dataList.get(holder.getAdapterPosition());
+                Note d = dataList.get(holder.getAdapterPosition());
                 int sID = d.getID();
                 String sText = d.getText();
 
@@ -78,7 +78,7 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
         holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Nota d = dataList.get(holder.getAdapterPosition());
+                Note d = dataList.get(holder.getAdapterPosition());
                 baseDeDatos.notaDao().delete(d);
 
                 int position = holder.getAdapterPosition();

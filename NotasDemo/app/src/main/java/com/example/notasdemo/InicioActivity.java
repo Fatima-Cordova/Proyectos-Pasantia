@@ -17,6 +17,7 @@ public class InicioActivity extends AppCompatActivity {
 
     EditText edtUser, edtPass;
     Button btnIngresar;
+    public final static String ID_USER = "ID_USER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,20 @@ public class InicioActivity extends AppCompatActivity {
                 String correo = edtUser.getText().toString();
                 String contra = edtPass.getText().toString();
 
+
                 if (!correo.isEmpty() && !contra.isEmpty()){
-                    if (userManager.validar(correo, contra)){
-                        startActivity(new Intent(InicioActivity.this, MainActivity.class));
-                    }else {
-                        Toast.makeText(getApplicationContext(),"El usuario ó contraseña no son válidos", Toast.LENGTH_LONG).show();
+                    User user = userManager.validar(correo, contra);
+                    if(user.getId() > 0){
+                        if (contra.equals(user.getPass())) {
+                            Intent intent = new Intent(InicioActivity.this, MainActivity.class);
+                            intent.putExtra(ID_USER, user.getId());
+                            startActivity(intent);
+                            InicioActivity.this.finish();
+                        }else{
+                            Toast.makeText(getApplicationContext(),"Contraseña inválida", Toast.LENGTH_LONG).show();
+                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Usuario inválido", Toast.LENGTH_LONG).show();
                     }
                 }else {
                     Toast.makeText(getApplicationContext(),"Los campos no deben estar vacíos", Toast.LENGTH_LONG).show();

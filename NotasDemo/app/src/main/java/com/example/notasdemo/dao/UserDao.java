@@ -2,7 +2,7 @@ package com.example.notasdemo.dao;
 
 import androidx.room.*;
 
-import com.example.notasdemo.model.Nota;
+import com.example.notasdemo.model.UserWithNote;
 import com.example.notasdemo.model.User;
 
 import java.util.List;
@@ -33,5 +33,8 @@ public interface UserDao {
 
     @Query("SELECT * FROM table_user WHERE email =:correo")
     User getUser(String correo);
+
+    @Query("SELECT * FROM table_user WHERE id =:idUser")
+    public List<UserWithNote> getAllNote(int idUser);
 }
 

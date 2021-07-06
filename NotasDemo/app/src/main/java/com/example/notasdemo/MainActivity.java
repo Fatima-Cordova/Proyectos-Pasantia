@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.notasdemo.model.Nota;
+import com.example.notasdemo.model.Note;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +21,20 @@ public class MainActivity extends AppCompatActivity {
     EditText edtEscribirNota;
     Button btnAgregar, btnBorrar;
     RecyclerView recycler;
-    List<Nota> dataList = new ArrayList<>();
+    List<Note> dataList = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
     RoomBD database;
     ClaseAdaptadora adaptadora;
+    private int idUser = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        idUser = intent.getIntExtra(InicioActivity.ID_USER, 0);
+        Toast.makeText(this, "Valor de otra activity" +idUser,Toast.LENGTH_SHORT).show();
 
         edtEscribirNota = (EditText) findViewById(R.id.edtEscribirNota);
         btnAgregar = (Button) findViewById(R.id.btnAgregar);
@@ -47,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String sText = edtEscribirNota.getText().toString().trim();
                 if (!sText.equals("")){
-                    Nota nota = new Nota();
+                    Note nota = new Note();
                     nota.setText(sText);
                     database.notaDao().insert(nota);
                     edtEscribirNota.setText("");
@@ -67,5 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 adaptadora.notifyDataSetChanged();
             }
         });
+    }
+
+    private void popularLista(int idUser){
+        if(idUser > 0){
+
+        }
     }
 }

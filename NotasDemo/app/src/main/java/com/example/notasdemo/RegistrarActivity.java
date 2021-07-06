@@ -42,10 +42,10 @@ public class RegistrarActivity extends AppCompatActivity {
                     public void run() {
                         Toast.makeText(getApplicationContext(),"Usuario registrado", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(RegistrarActivity.this, InicioActivity.class));
+                        RegistrarActivity.this.finish();
                     }
                 });
             }
         }).start();
-
     }
 }
