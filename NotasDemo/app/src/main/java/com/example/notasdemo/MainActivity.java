@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.notasdemo.model.Note;
+import com.example.notasdemo.model.UserWithNote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         idUser = intent.getIntExtra(InicioActivity.ID_USER, 0);
-        Toast.makeText(this, "Valor de otra activity" +idUser,Toast.LENGTH_SHORT).show();
 
         edtEscribirNota = (EditText) findViewById(R.id.edtEscribirNota);
         btnAgregar = (Button) findViewById(R.id.btnAgregar);
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         recycler = (RecyclerView) findViewById(R.id.recycler);
 
         database = RoomBD.getInstance(this);
-        dataList = database.notaDao().getAll();
+        popularLista(idUser);
 
         linearLayoutManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(linearLayoutManager);
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!sText.equals("")){
                     Note nota = new Note();
                     nota.setText(sText);
+                    nota.setIdUser(idUser);
                     database.notaDao().insert(nota);
                     edtEscribirNota.setText("");
                     dataList.clear();
@@ -77,8 +78,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void popularLista(int idUser){
+        UserWithNote userNote = new UserWithNote();
         if(idUser > 0){
-
+            userNote = database.userDao().getAllNote(idUser);
+            dataList = userNote.notas;
         }
     }
 }

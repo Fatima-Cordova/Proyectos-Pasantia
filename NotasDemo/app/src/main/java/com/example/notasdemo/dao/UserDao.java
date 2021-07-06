@@ -35,6 +35,6 @@ public interface UserDao {
     User getUser(String correo);
 
     @Query("SELECT * FROM table_user WHERE id =:idUser")
-    public List<UserWithNote> getAllNote(int idUser);
+    public UserWithNote getAllNote(int idUser);
 }
 
