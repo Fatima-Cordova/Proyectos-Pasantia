@@ -65,15 +65,10 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
                     public void onClick(View v) {
                         dialog.dismiss();
                         String uText = editText.getText().toString().trim();
-                        UserWithNote userNote = new UserWithNote();
                         baseDeDatos.notaDao().update(note.getID(), uText);
                         dataList.clear();
-                        //dataList.addAll(baseDeDatos.notaDao().getAll());
-                        /*userNote = baseDeDatos.userDao().getAllNote(note.getID());
-                        if (userNote != null){
-                            dataList.addAll(userNote.notas);
-                        }*/
-                        baseDeDatos.userDao().getAllNote(note.getID());
+                        UserWithNote userNote = baseDeDatos.userDao().getAllNote(note.getIdUser());
+                        dataList.addAll(userNote.notas);
                         notifyDataSetChanged();
                     }
                 });
@@ -115,3 +110,17 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
         }
     }
 }
+
+
+
+
+
+
+
+
+
+//dataList.addAll(baseDeDatos.notaDao().getAll());
+                        /*userNote = baseDeDatos.userDao().getAllNote(note.getID());
+                        if (userNote != null){
+                            dataList.addAll(userNote.notas);
+                        }*/
