@@ -26,22 +26,24 @@
         app:backgroundTint="@color/primary">
 
         <Button
+            android:id="@+id/btnAgregar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:id="@+id/btnAgregar"
-            android:text="Agregar"
+            android:text="Agregar nota"
             android:textColor="@color/black"
-            app:backgroundTint="@color/primary"/>
+            app:backgroundTint="@color/primary" />
 
         <Button
+            android:id="@+id/btnEliminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:id="@+id/btnEliminar"
-            android:text="Eliminar"
+            android:text="Limpiar notas"
             android:textColor="@color/black"
-            app:backgroundTint="@color/primary"/>
+            app:backgroundTint="@color/primary" />
 
     </LinearLayout>
 

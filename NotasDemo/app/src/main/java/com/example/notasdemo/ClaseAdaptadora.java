@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notasdemo.model.Note;
+import com.example.notasdemo.model.UserWithNote;
 
 import java.util.List;
 
@@ -45,9 +46,7 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
         holder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Note d = dataList.get(holder.getAdapterPosition());
-                int sID = d.getID();
-                String sText = d.getText();
+                Note note = dataList.get(holder.getAdapterPosition());
 
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialogo_actualizar);
@@ -59,16 +58,22 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
                 final EditText editText = (EditText) dialog.findViewById(R.id.edtEscribirNota);
                 Button btUpdate = (Button) dialog.findViewById(R.id.btnActualizar);
 
-                editText.setText(sText);
+                editText.setText(note.getText());
 
                 btUpdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                         String uText = editText.getText().toString().trim();
-                        baseDeDatos.notaDao().update(sID, uText);
+                        UserWithNote userNote = new UserWithNote();
+                        baseDeDatos.notaDao().update(note.getID(), uText);
                         dataList.clear();
-                        dataList.addAll(baseDeDatos.notaDao().getAll());
+                        //dataList.addAll(baseDeDatos.notaDao().getAll());
+                        /*userNote = baseDeDatos.userDao().getAllNote(note.getID());
+                        if (userNote != null){
+                            dataList.addAll(userNote.notas);
+                        }*/
+                        baseDeDatos.userDao().getAllNote(note.getID());
                         notifyDataSetChanged();
                     }
                 });

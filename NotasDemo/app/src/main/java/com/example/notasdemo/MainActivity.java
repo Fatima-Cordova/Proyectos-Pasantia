@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                     database.notaDao().insert(nota);
                     edtEscribirNota.setText("");
                     dataList.clear();
-                    //dataList.addAll(database.notaDao().getAll());
                     popularLista(idUser);
                     adaptadora.notifyDataSetChanged();
                 }
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 database.notaDao().reset(dataList);
                 dataList.clear();
-                dataList.addAll(database.notaDao().getAll());
+                popularLista(idUser);
                 adaptadora.notifyDataSetChanged();
             }
         });
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         UserWithNote userNote = new UserWithNote();
         if(idUser > 0){
             userNote = database.userDao().getAllNote(idUser);
-            dataList = userNote.notas;
+            dataList.addAll(userNote.notas);
 
             /*for(Note note:dataList){
                 note.setText(Cypher.decrypt(note.getText()));
