@@ -110,17 +110,3 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
         }
     }
 }
-
-
-
-
-
-
-
-
-
-//dataList.addAll(baseDeDatos.notaDao().getAll());
-                        /*userNote = baseDeDatos.userDao().getAllNote(note.getID());
-                        if (userNote != null){
-                            dataList.addAll(userNote.notas);
-                        }*/

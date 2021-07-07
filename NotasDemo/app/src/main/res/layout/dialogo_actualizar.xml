@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/editbox_background"
         android:gravity="top"
-        android:hint="Escriba aquí..."
+        android:hint="Write here..."
         android:lines="4"
         android:padding="12dp" />
 
@@ -23,7 +23,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/primary"
-        android:text="Actualizar"
+        android:text="update"
         android:textColor="@color/black" />
 
 </LinearLayout>
