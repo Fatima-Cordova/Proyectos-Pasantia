@@ -14,11 +14,10 @@ public class Usuario implements Serializable {
     public int id;
 
     @ColumnInfo(name = "idSocialIcon")
-    public String idSocialIcon;
+    public int idSocialIcon;
 
     @ColumnInfo(name = "user")
     public String user;
-
 
     @ColumnInfo(name = "nameNetworkSocial")
     public String nameNetworkSocial;
@@ -32,12 +31,16 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public String getIdSocialIcon() {
+    public int getIdSocialIcon() {
         return idSocialIcon;
     }
 
-    public void setIdSocialIcon(String idSocialIcon) {
+    public void setIdSocialIcon(int idSocialIcon) {
         this.idSocialIcon = idSocialIcon;
+    }
+
+    public void setNameNetworkSocial(String nameNetworkSocial) {
+        this.nameNetworkSocial = nameNetworkSocial;
     }
 
     public String getUser() {
@@ -52,7 +55,4 @@ public class Usuario implements Serializable {
         return nameNetworkSocial;
     }
 
-    public void setNameNetworkSocial(String nameNetworkSocial) {
-        this.nameNetworkSocial = nameNetworkSocial;
-    }
 }

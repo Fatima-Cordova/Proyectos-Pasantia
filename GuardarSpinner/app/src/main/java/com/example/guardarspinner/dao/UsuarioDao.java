@@ -33,8 +33,8 @@ public interface UsuarioDao {
     @Query("SELECT * FROM table_user")
     List<Usuario> getAll();
 
-    @Query("SELECT * FROM table_user WHERE user =:usuario")
-    Usuario getUser(String usuario);
+    @Query("SELECT * FROM table_user WHERE id =:idUser")
+    Usuario getUser(int idUser);
 }
 
 

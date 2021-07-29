@@ -12,19 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.guardarspinner.R;
+import com.example.guardarspinner.RoomDB;
+import com.example.guardarspinner.model.RedesSociales;
 import com.example.guardarspinner.model.Usuario;
 
 import java.util.ArrayList;
 
-public class Adaptador extends ArrayAdapter<Usuario> {
+public class Adaptador extends ArrayAdapter<RedesSociales> {
 
-    public Adaptador(Context context, ArrayList<Usuario> iconoList){
+    private RoomDB baseDeDatos;
+
+
+    public Adaptador(Context context, ArrayList<RedesSociales> iconoList){
         super(context,0, iconoList);
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         return initView(position, convertView, parent);
     }
 
@@ -36,17 +41,17 @@ public class Adaptador extends ArrayAdapter<Usuario> {
     private View initView(int position, View convertView, ViewGroup parent){
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.spinner_iconos, parent, false);
+                    R.layout.spinner_iconos, parent, false
+            );
         }
-
         ImageView iconoImagen = convertView.findViewById(R.id.icono_imagen);
         TextView txtIcono = convertView.findViewById(R.id.txtIcono);
 
-        Usuario usuario = getItem(position);
+        RedesSociales redesSociales = getItem(position);
 
-        if (usuario != null) {
-            iconoImagen.setImageResource(usuario.getId());
-            txtIcono.setText(usuario.getNameNetworkSocial());
+        if (redesSociales != null) {
+            iconoImagen.setImageResource(redesSociales.getIdSocial());
+            txtIcono.setText(redesSociales.getNombreSocial());
         }
         return convertView;
     }
