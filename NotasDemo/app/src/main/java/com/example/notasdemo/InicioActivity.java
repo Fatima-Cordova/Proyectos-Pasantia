@@ -35,19 +35,18 @@ public class InicioActivity extends AppCompatActivity {
                 String correo = edtUser.getText().toString();
                 String contra = edtPass.getText().toString();
 
-
-                if (!correo.isEmpty() && !contra.isEmpty()){
-                    User user = userManager.validar(correo, contra);
-                    if(user.getId() > 0){
+                if (!correo.isEmpty() && !contra.isEmpty()) {
+                    User user = userManager.validar(correo);
+                    if(user.getId() > 0) {
                         if (contra.equals(user.getPass())) {
                             Intent intent = new Intent(InicioActivity.this, MainActivity.class);
                             intent.putExtra(ID_USER, user.getId());
                             startActivity(intent);
                             InicioActivity.this.finish();
-                        }else{
+                        } else {
                             Toast.makeText(getApplicationContext(),"Contraseña inválida", Toast.LENGTH_LONG).show();
                         }
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(),"Usuario inválido", Toast.LENGTH_LONG).show();
                     }
                 }else {

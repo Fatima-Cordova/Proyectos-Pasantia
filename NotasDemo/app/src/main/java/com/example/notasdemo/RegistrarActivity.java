@@ -36,13 +36,17 @@ public class RegistrarActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                userManager.ingresar(correo, contra);
+                boolean isOk = userManager.registrarNuevoUsuario(correo, contra);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(),"Usuario registrado", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(RegistrarActivity.this, InicioActivity.class));
-                        RegistrarActivity.this.finish();
+                        if (isOk) {
+                            Toast.makeText(getApplicationContext(),"Usuario registrado", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(RegistrarActivity.this, InicioActivity.class));
+                            RegistrarActivity.this.finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(),"No se ha podido registrar el usuario", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
             }

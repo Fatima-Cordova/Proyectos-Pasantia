@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.notasdemo.RoomBD;
 import com.example.notasdemo.model.User;
+import com.example.notasdemo.util.Cypher;
 
 public class UserManager {
 
@@ -14,21 +15,37 @@ public class UserManager {
         baseDeDatos = RoomBD.getInstance(context);
     }
 
-    public void ingresar(String email, String pass){
+    public boolean registrarNuevoUsuario(String email, String pass){
         User user = new User();
-        user.setEmail(email);
-        user.setPass(pass);
-        baseDeDatos.userDao().insert(user);
+        boolean nuevoUsuario;
+        try {
+            user.setEmail(Cypher.encrypt(email));
+            user.setPass(Cypher.encrypt(pass));
+            baseDeDatos.userDao().insert(user);
+            nuevoUsuario = true;
+        } catch (Exception exception) {
+            nuevoUsuario = false;
+        }
+        return nuevoUsuario;
     }
 
-    public User validar(String correo, String pass) {
-        User user = baseDeDatos.userDao().getUser(correo);
-        if (user != null) {
-            return user;
-        } else {
-            user = new User();
-            user.setId(0);
-            return user;
+    public User validar(String correo) {
+        try {
+            User user = baseDeDatos.userDao().getUser(Cypher.encrypt(correo));
+            if (user != null) {
+                user.setPass(Cypher.decrypt(user.getPass()));
+                return user;
+            } else {
+                return simpleUser();
+            }
+        } catch (Exception exception) {
+            return simpleUser();
         }
+    }
+
+    private User simpleUser() {
+        User user = new User();
+        user.setId(0);
+        return user;
     }
 }

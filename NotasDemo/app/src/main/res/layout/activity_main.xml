@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/editbox_background"
-        android:hint="Enter note...."
+        android:hint="Escribir nota..."
         android:padding="12dp" />
 
     <LinearLayout
@@ -31,9 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="Add note"
+            android:text="Agregar nota"
             android:textColor="@color/black"
-            app:backgroundTint="@color/primary" />
+            app:backgroundTint="@color/purple_200" />
 
         <Button
             android:id="@+id/btnEliminar"
@@ -41,9 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="delete all"
+            android:text="eliminar todo"
             android:textColor="@color/black"
-            app:backgroundTint="@color/primary" />
+            app:backgroundTint="#A3FB2E2E" />
 
     </LinearLayout>
 
