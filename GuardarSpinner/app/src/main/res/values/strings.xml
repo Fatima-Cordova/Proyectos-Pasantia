@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">GuardarSpinner</string>
 
+    <string-array name="redes_sociales">
+        <item>Facebook</item>
+        <item>Instagram</item>
+        <item>Snapchat</item>
+        <item>Telegram</item>
+        <item>Twitter</item>
+        <item>Youtube</item>
+    </string-array>
 </resources>

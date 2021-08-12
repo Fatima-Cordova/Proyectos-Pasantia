@@ -1,6 +1,8 @@
 package com.example.guardarspinner.model;
 
-public class RedesSociales {
+import java.io.Serializable;
+
+public class RedesSociales implements Serializable {
     private String nombreSocial = "";
     private int idSocial;
 

@@ -52,10 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (nombre.isEmpty()){
             mostrarMsj(Constante.CAMPOS_VACIOS, "");
-
-        } /*else if (redesSociales != null){
-            mostrarMsj(Constante.ERROR, "No existe la red social");
-        } */else {
+        } else {
             try {
                 guardarDataBase(Cypher.encrypt(nombre),redesSociales);
             } catch (Exception e) {
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void mostrar (View view) {
-        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+        Intent intent = new Intent(MainActivity.this, ListaActivity.class);
         startActivity(intent);
     }
 

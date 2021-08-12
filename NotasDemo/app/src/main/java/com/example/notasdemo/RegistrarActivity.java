@@ -27,6 +27,8 @@ public class RegistrarActivity extends AppCompatActivity {
 
     }
 
+
+
     public void registrar(View view){
         String correo = edtCorreo.getText().toString();
         String contra = edtContra.getText().toString();

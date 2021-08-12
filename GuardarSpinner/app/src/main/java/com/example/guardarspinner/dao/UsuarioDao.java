@@ -18,12 +18,6 @@ public interface UsuarioDao {
     @Insert(onConflict = REPLACE)
     void insert(Usuario usuario);
 
-    @Delete
-    void delete(Usuario usuario);
-
-    @Delete
-    void reset(List<Usuario> mainData);
-
     @Query("SELECT * FROM table_user order by id desc limit 1")
     Usuario getLastUserInformationSave();
 

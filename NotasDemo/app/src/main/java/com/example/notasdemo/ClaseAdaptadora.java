@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notasdemo.model.Note;
 import com.example.notasdemo.model.UserWithNote;
+import com.example.notasdemo.util.Cypher;
 
 import java.util.List;
 
@@ -39,9 +40,14 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
 
     @Override
     public void onBindViewHolder(ClaseAdaptadora.ViewHolder holder, int position) {
-        Note data = dataList.get(position);
+        Note nota = dataList.get(position);
         baseDeDatos = RoomBD.getInstance(context);
-        holder.txtNota.setText(data.getText());
+
+        try {
+            holder.txtNota.setText(Cypher.decrypt(nota.getText()));
+        } catch (Exception exception) {
+
+        }
 
         holder.btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,13 +64,22 @@ public class ClaseAdaptadora extends RecyclerView.Adapter<ClaseAdaptadora.ViewHo
                 final EditText editText = (EditText) dialog.findViewById(R.id.edtEscribirNota);
                 Button btUpdate = (Button) dialog.findViewById(R.id.btnActualizar);
 
-                editText.setText(note.getText());
+                try {
+                    editText.setText(Cypher.decrypt(note.getText()));
+                } catch (Exception exception) {
+
+                }
 
                 btUpdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        String uText = editText.getText().toString().trim();
+                        String uText = "";
+                        try {
+                            uText = Cypher.encrypt(editText.getText().toString().trim());
+                        } catch (Exception exception) {
+
+                        }
                         baseDeDatos.notaDao().update(note.getID(), uText);
                         dataList.clear();
                         UserWithNote userNote = baseDeDatos.userDao().getAllNote(note.getIdUser());

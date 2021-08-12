@@ -1,5 +1,6 @@
 package com.example.guardarspinner.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,51 +8,80 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.guardarspinner.R;
+import com.example.guardarspinner.model.Usuario;
 
-public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.RedesSociales> {
-    String redes[];
-    int imagenes[];
-    Context contxt;
+import java.util.ArrayList;
 
-    public AdaptadorRecycler(Context context, String redesSociales[], int img[]) {
-        contxt = context;
-        redes = redesSociales;
-        imagenes = img;
 
-    }
+public class AdaptadorRecycler extends RecyclerView.Adapter<AdaptadorRecycler.ViewHolderUsuario>
+        implements View.OnClickListener {
 
-    @NonNull
-    @Override
-    public RedesSociales onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(contxt);
-        View view = inflater.inflate(R.layout.mi_lista, parent, false);
-        return new RedesSociales(view);
+    ArrayList<Usuario> listaUsuarios;
+    private Activity context;
+    private View.OnClickListener listener;
+
+    public AdaptadorRecycler(Activity context, ArrayList<Usuario> usuarios) {
+        this.context = context;
+        this.listaUsuarios = usuarios;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RedesSociales holder, int position) {
-        holder.txtNombreUsuario.setText(redes[position]);
-        holder.imageView.setImageResource(imagenes[position]);
+    public AdaptadorRecycler.ViewHolderUsuario onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mi_lista, null, false);
+
+        return new ViewHolderUsuario(view);
+    }
+
+    @Override
+    public void onBindViewHolder(AdaptadorRecycler.ViewHolderUsuario holder, int position) {
+        // int id = 0;
+        holder.txtNombreUsuario.setText(listaUsuarios.get(position).getUser());
     }
 
     @Override
     public int getItemCount() {
-        return imagenes.length;
+        return listaUsuarios.size();
     }
 
-    public class RedesSociales extends RecyclerView.ViewHolder {
+    @Override
+    public void onClick(View view) {
+        if (listener != null) {
+            listener.onClick(view);
+        }
+    }
 
-        TextView txtNombreUsuario;
-        ImageView imageView;
+    public class ViewHolderUsuario extends RecyclerView.ViewHolder{
 
-        public RedesSociales(@NonNull View itemView) {
+        private TextView txtNombreUsuario;
+        private ImageView imgRed;
+
+        public ViewHolderUsuario(View itemView) {
             super(itemView);
-            txtNombreUsuario = itemView.findViewById(R.id.txtNombreUsuario);
-            imageView = itemView.findViewById(R.id.myImageView);
+            txtNombreUsuario = (TextView) itemView.findViewById(R.id.txtNombreUsuario);
+            imgRed = (ImageView) itemView.findViewById(R.id.myImageView);
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* public interface RecyclerItemClick {
+        void itemClick(Usuario usuario);
+    }*/
+// this.itemClick = itemClick; RecyclerItemClick itemClick// private RecyclerItemClick itemClick;

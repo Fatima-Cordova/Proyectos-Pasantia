@@ -20,9 +20,6 @@ import java.util.ArrayList;
 
 public class Adaptador extends ArrayAdapter<RedesSociales> {
 
-    private RoomDB baseDeDatos;
-
-
     public Adaptador(Context context, ArrayList<RedesSociales> iconoList){
         super(context,0, iconoList);
     }

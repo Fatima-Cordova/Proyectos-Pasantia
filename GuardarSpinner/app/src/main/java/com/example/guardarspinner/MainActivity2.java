@@ -2,6 +2,7 @@ package com.example.guardarspinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,10 +30,11 @@ public class MainActivity2 extends AppCompatActivity {
         txtNombre = (TextView) findViewById(R.id.txtNombre);
         txtRed = (TextView) findViewById(R.id.txtRed);
         imgRed = (ImageView) findViewById(R.id.imageView);
-
-
+        Intent intent = getIntent();
+        idUser = intent.getIntExtra(Constante.ID_USER, 0);
         dataBase = RoomDB.getInstance(this);
         extraerDatosDB();
+
     }
 
     private void extraerDatosDB() {
@@ -41,6 +43,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void run() {
                 Usuario usuario = dataBase.usuariosDao().getUser(idUser);
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -52,9 +55,9 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void datosAMostrar(Usuario usuario) {
-
         if(usuario != null) {
             try {
+                //usuario = (Usuario) getIntent().getExtras().getSerializable(Constante.ID_USER);
                 imgRed.setImageDrawable(getDrawable(usuario.getIdSocialIcon()));
                 txtRed.setText(usuario.getNameNetworkSocial());
                 txtNombre.setText(Cypher.decrypt(usuario.getUser()));

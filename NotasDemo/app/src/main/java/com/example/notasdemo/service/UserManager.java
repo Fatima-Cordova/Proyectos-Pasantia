@@ -10,7 +10,6 @@ public class UserManager {
 
     private RoomBD baseDeDatos;
 
-
     public UserManager(Context context) {
         baseDeDatos = RoomBD.getInstance(context);
     }
