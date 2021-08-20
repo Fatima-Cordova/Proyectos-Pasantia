@@ -14,23 +14,36 @@ import android.widget.Toast;
 import com.example.notasdemo.model.Note;
 import com.example.notasdemo.model.User;
 import com.example.notasdemo.model.UserWithNote;
+import com.example.notasdemo.retrofit.RetrofitInstance;
+import com.example.notasdemo.retrofit.RetrofitServices;
+import com.example.notasdemo.retrofit.model.response.CSVUploadResponse;
 import com.example.notasdemo.util.Cypher;
 import com.example.notasdemo.util.ExportCSV;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.crypto.Cipher;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
-    EditText edtEscribirNota;
-    Button btnAgregar, btnBorrar;
-    RecyclerView recycler;
-    List<Note> listaNotas = new ArrayList<>();
-    LinearLayoutManager linearLayoutManager;
-    RoomBD database;
-    ClaseAdaptadora adaptadora;
+    private EditText edtEscribirNota;
+    private Button btnAgregar, btnBorrar;
+    private FloatingActionButton btnExportar;
+    private RecyclerView recycler;
+    private List<Note> listaNotas = new ArrayList<>();
+    private LinearLayoutManager linearLayoutManager;
+    private RoomBD database;
+    private ClaseAdaptadora adaptadora;
     private int idUser = 0;
 
     @Override
@@ -44,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         edtEscribirNota = (EditText) findViewById(R.id.edtEscribirNota);
         btnAgregar = (Button) findViewById(R.id.btnAgregar);
         btnBorrar = (Button) findViewById(R.id.btnEliminar);
+        btnExportar = (FloatingActionButton) findViewById(R.id.btnExportar);
         recycler = (RecyclerView) findViewById(R.id.recycler);
 
         database = RoomBD.getInstance(this);
@@ -89,12 +103,43 @@ public class MainActivity extends AppCompatActivity {
 
     public void exportar (View view){
         if(listaNotas.size() > 0) {
+            btnExportar.setEnabled(false);
             ExportCSV exportCSV = new ExportCSV(this, listaNotas);
             exportCSV.createCSV();
-            Toast.makeText(this, "Archivo CSV exportado", Toast.LENGTH_SHORT).show();
+            showMessage("Archivo CSV exportado");
+            subirData(exportCSV.getCsv());
         } else {
-            Toast.makeText(this, "No hay notas para exportar", Toast.LENGTH_SHORT).show();
+            showMessage("No hay notas para exportar");
         }
+    }
+
+    private void subirData (File csv) {
+
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData(
+                "uploadFile",
+                csv.getName(),
+                RequestBody.create(MediaType.parse("text/plain" + "; charset=utf-8"), csv)
+        );
+        RetrofitServices retroServices = RetrofitInstance.getInstance().create(RetrofitServices.class);
+        Call<CSVUploadResponse> responseCall = retroServices.uploadAttachment(filePart);
+
+        responseCall.enqueue(new Callback<CSVUploadResponse>() {
+            @Override
+            public void onResponse(Call<CSVUploadResponse> call, Response<CSVUploadResponse> response) {
+                btnExportar.setEnabled(true);
+                showMessage("Archivo guardado en el servidor");
+            }
+
+            @Override
+            public void onFailure(Call<CSVUploadResponse> call, Throwable t) {
+                btnExportar.setEnabled(true);
+                showMessage("Error al subir el archivo");
+            }
+        });
+    }
+
+    private void showMessage(String msj) {
+        Toast.makeText(this, msj, Toast.LENGTH_SHORT).show();
     }
 
     private void popularLista(int idUser){

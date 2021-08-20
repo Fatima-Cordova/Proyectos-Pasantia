@@ -21,9 +21,9 @@ import com.example.notasdemo.service.UserManager;
 
 public class InicioActivity extends AppCompatActivity {
 
-    EditText edtUser, edtPass;
-    Button btnIngresar;
-    int codigo = 0;
+    private EditText edtUser, edtPass;
+    private Button btnIngresar;
+    private int codigo = 0;
     public final static String ID_USER = "ID_USER";
 
     @Override

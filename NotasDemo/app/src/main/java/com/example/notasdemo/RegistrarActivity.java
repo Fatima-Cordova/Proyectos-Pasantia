@@ -13,8 +13,8 @@ import com.example.notasdemo.service.UserManager;
 
 public class RegistrarActivity extends AppCompatActivity {
 
-    EditText edtCorreo, edtContra;
-    Button btnRegistrar;
+    private EditText edtCorreo, edtContra;
+    private Button btnRegistrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,6 @@ public class RegistrarActivity extends AppCompatActivity {
         edtCorreo = (EditText) findViewById(R.id.edtCorreo);
         edtContra = (EditText) findViewById(R.id.edtContra);
         btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
-
     }
 
 

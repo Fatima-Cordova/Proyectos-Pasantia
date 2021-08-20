@@ -18,12 +18,15 @@ public class ExportCSV {
 
     private List<Note> listaNotas = new ArrayList<>();
     private File directorio;
+    private File csv;
     private final String SEPARADOR = ", ";
     private final String FILE_EXPORT = "file_export.csv";
+
 
     public ExportCSV(Context context, List<Note> notas) {
         listaNotas = notas;
         directorio = new File(context.getExternalFilesDir(""), Environment.DIRECTORY_DOCUMENTS);
+
     }
 
     private boolean prepareDirectory() {
@@ -43,7 +46,8 @@ public class ExportCSV {
     public void createCSV() {
         if(prepareDirectory()) {
             try {
-                FileWriter fileWriter = new FileWriter(directorio.getAbsolutePath() + "/" + System.currentTimeMillis() + FILE_EXPORT);
+                String fileName = directorio.getAbsolutePath() + "/" + System.currentTimeMillis() + FILE_EXPORT;
+                FileWriter fileWriter = new FileWriter(fileName);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
                 //Cabecera
@@ -56,12 +60,17 @@ public class ExportCSV {
 
                 bufferedWriter.close();
                 fileWriter.close();
+                csv = new File(fileName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
 
         }
+    }
+
+    public File getCsv() {
+        return csv;
     }
 
     private String generateHeader() {
